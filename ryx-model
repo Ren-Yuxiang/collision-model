@@ -1,0 +1,48 @@
+from tkinter import *
+
+root = Tk()
+root.title('简单避碰模型')
+root.geometry('300x160')
+Label(root,text='请输入物标方位：').place(x=30,y=30)
+Label(root,text='建议避碰转向值：').place(x=30,y=70)
+e1 = Entry()
+e1.place(x=130,y=30)
+t1 = Text(root,height=1,)
+t1.place(x=130,y=70)
+
+
+def cal():
+    left = 0
+    right = 0
+    angle = e1.get()
+    angle = int(angle)
+    print(type(angle))
+    area = [0,30,90,150,210,292.5,330,360]
+    if (area[0]< angle < area[1]):
+        right = max(20,angle)
+    elif (area[1]< angle < area[2]):
+        right = max(20,angle+30)
+    elif (area[4]< angle < area[5]):
+        right = max(20,abs(angle-180))
+    elif (area[5]< angle < area[6]):
+        right = max(20,abs(angle-270))
+    elif (area[6]< angle < area[7]):
+        right = max(20,abs(angle-360))
+
+    if (area[2]< angle < area[3]):
+        left = max(20,180-angle)
+    elif (area[3]< angle < area[4]):
+        left = max(20,abs(180-angle))
+
+    if (area[2]< angle < area[3]) or (area[3]< angle < area[4]):
+        t1.insert('insert',("左舵",left,"°"))
+    else:
+        t1.insert('insert',("右舵",right,"°"))
+
+
+
+Button(root,text='获取信息',width=10,command=cal).place(x=20,y=120)
+Button(root,text='退出',width=10,command=root.quit).place(x=180,y=120)
+
+
+mainloop()
