@@ -1,5 +1,7 @@
 from tkinter import *
 
+#git push test
+
 root = Tk()
 root.title('简单避碰模型')
 root.geometry('300x160')
